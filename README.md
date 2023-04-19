@@ -43,17 +43,35 @@ For example to access plain FTP, use:
 ncftp -u ftpuser -p ftppass -P 2221 ftp://localhost
 ```
 
-and for FTPS, use:
+and for FTPS, add the configuration `~/.lftprc`:
+
+```
+set ftp:ssl-auth TLS
+set ftp:ssl-force true
+set ftp:ssl-protect-list yes
+set ftp:ssl-protect-data yes
+set ftp:ssl-protect-fxp yes
+set ssl:verify-certificate no
+set ftp:passive-mode yes
+debug 1
+```
+
+and test using:
 
 ```shell
 lftp -u ftpuser,ftppass ftp://localhost:2231
 ```
 
-and for SFTP, use:
+For SFTP, use for example:
 
 ```shell
 sftp -o StrictHostKeyChecking=accept-new -P 2222 ftpuser@localhost
 ```
+
+## Known issues
+
+The GitHub Actions workflow seems to occasionally fail for some unknown
+reason. It is somehow related to the Docker Compose and/or networking.
 
 ## Further reading
 
