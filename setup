@@ -13,7 +13,6 @@ set -o errtrace
 SCRIPT_BASE_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 source "${SCRIPT_BASE_DIR}/common-functions.sh"
-trap cleanup EXIT
 
 function main() {
   cd "${SCRIPT_BASE_DIR}"
