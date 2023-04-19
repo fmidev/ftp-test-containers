@@ -26,12 +26,6 @@ jobs:
                 shellcheck --external-sources --check-sourced
 
     - name: Setup
-#      ports:
-#        - 2221
-#        - 2231
-#        - 2222
-#        - 21000-21010
-#        - 22000-22010
       run: |
         id
         # FIXME: Debug and fix the plain FTP server setup
@@ -41,11 +35,10 @@ jobs:
         echo -e "ls\nbye" > ftp-commands
         sudo apt install --yes lftp
 
-    # TODO
-    #- name: FTP connection test
-    #  run: |
-    #    cat ftp-commands | \
-    #      ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+    - name: FTP connection test
+      run: |
+        cat ftp-commands | \
+          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
 
     - name: FTPS connection test
       run: |
