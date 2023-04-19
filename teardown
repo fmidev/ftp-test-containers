@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Stops the Dockerized FTP test servers (FTP, FTPS and SFTP).
+#
+# @author mikko.parviainen@fmi.fi, 2023
+#
+
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+
+SCRIPT_BASE_DIR="$(dirname "${BASH_SOURCE[0]}")"
+
+source "${SCRIPT_BASE_DIR}/common-functions.sh"
+
+function main() {
+  cd "${SCRIPT_BASE_DIR}"
+
+  stop_ftp_servers
+}
+
+main "$@"

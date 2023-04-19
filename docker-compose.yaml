@@ -1,0 +1,40 @@
+version: '3'
+services:
+  # See https://hub.docker.com/r/delfer/alpine-ftp-server
+  ftp:
+    image: delfer/alpine-ftp-server
+    ports:
+      - "2221:21"
+      - "21000-21010:21000-21010"
+    environment:
+      - USERS=ftpuser|ftppass|/home/ftpuser
+      - ADDRESS=localhost
+    volumes:
+      - ./upload:/home/ftpuser
+
+  # See https://hub.docker.com/r/delfer/alpine-ftp-server (File Transfer Protocol + SSL)
+  ftps:
+    image: delfer/alpine-ftp-server
+    ports:
+      - "2231:21"
+      - "22000-22010:22000-22010"
+    environment:
+      - USERS=ftpuser|ftppass|/home/ftpuser
+      - ADDRESS=localhost
+      - MIN_PORT=22000
+      - MAX_PORT=22010
+      - TLS_CERT=/etc/custom-cert/localhost.crt
+      - TLS_KEY=/etc/custom-cert/localhost.key
+    volumes:
+      - ./cert:/etc/custom-cert
+      - ./upload:/home/ftpuser
+
+  # See https://hub.docker.com/r/atmoz/sftp
+  sftp:
+    image: atmoz/sftp
+    ports:
+      - "2222:22"
+    volumes:
+      - ./upload:/home/ftpuser/upload
+    command:
+      "ftpuser:ftppass:1000"
