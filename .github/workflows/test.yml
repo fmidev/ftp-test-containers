@@ -34,19 +34,35 @@ jobs:
 #        - 22000-22010
       run: |
         id
+        # FIXME: Debug and fix the plain FTP server setup
         ./setup &
         # Give some time for the containers to start
         sleep 15
         echo -e "ls\nbye" > ftp-commands
+        sudo apt install --yes lftp
 
-#    - name: FTP connection test
-#      run: |
-#        cat ftp-commands | \
-#          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+    # TODO
+    #- name: FTP connection test
+    #  run: |
+    #    cat ftp-commands | \
+    #      ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
 
     - name: FTPS connection test
       run: |
-        echo "TODO"
+        cat << EOF > ~/.lftprc
+set ftp:ssl-auth TLS
+set ftp:ssl-force true
+set ftp:ssl-protect-list yes
+set ftp:ssl-protect-data yes
+set ftp:ssl-protect-fxp yes
+set ssl:verify-certificate no
+set ssl:verify-certificate no
+set ftp:passive-mode yes
+debug 1
+EOF
+        cat ftp-commands | \
+          lftp -u ftpuser,ftppass ftp://localhost:2231
+        rm --force ~/.lftprc
 
     - name: SFTP connection test
       run: |
