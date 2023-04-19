@@ -38,6 +38,15 @@ jobs:
 
     - name: FTP connection test
       run: |
+        cat << EOF > ~/.lftprc
+        set ftp:passive-mode yes
+        set dns:fatal-timeout 2
+        set net:timeout 2
+        set torrent:timeout 2
+        set xfer:timeout 2
+        set net:max-retries 2
+        debug 1
+        EOF
         cat ftp-commands | \
           lftp -u ftpuser,ftppass ftp://localhost:2222
 #          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
@@ -50,7 +59,6 @@ jobs:
         set ftp:ssl-protect-list yes
         set ftp:ssl-protect-data yes
         set ftp:ssl-protect-fxp yes
-        set ssl:verify-certificate no
         set ssl:verify-certificate no
         set ftp:passive-mode yes
         set dns:fatal-timeout 2
