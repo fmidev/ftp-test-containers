@@ -10,12 +10,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    ports:
-      - 2221
-      - 2231
-      - 2222
-      - 21000-21010
-      - 22000-22010
 
     steps:
     - name: Code checkout
@@ -32,6 +26,12 @@ jobs:
                 shellcheck --external-sources --check-sourced
 
     - name: Setup
+      ports:
+        - 2221
+        - 2231
+        - 2222
+        - 21000-21010
+        - 22000-22010
       run: |
         id
         ./setup &
