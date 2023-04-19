@@ -28,15 +28,14 @@ jobs:
 
     - name: Setup
       run: |
-        id
-        # FIXME: Debug and fix the plain FTP server setup
-        ./setup &
+        sudo apt-get install --yes lftp
+        echo -e "ls\nbye" > ftp-commands
+        ./setup
         # Give some time for the containers to start
         sleep 15
-        echo -e "ls\nbye" > ftp-commands
-        sudo apt-get install --yes lftp
 
     - name: FTP connection test
+      if: always()
       run: |
         cat << EOF > ~/.lftprc
         set ftp:passive-mode yes
@@ -52,6 +51,7 @@ jobs:
         rm --force ~/.lftprc
 
     - name: FTPS connection test
+      if: always()
       run: |
         cat << EOF > ~/.lftprc
         set ftp:ssl-auth TLS
@@ -73,6 +73,7 @@ jobs:
         rm --force ~/.lftprc
 
     - name: SFTP connection test
+      if: always()
       run: |
         export SSHPASS=ftppass
         cat ftp-commands | \
