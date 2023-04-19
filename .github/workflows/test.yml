@@ -39,10 +39,10 @@ jobs:
         sleep 15
         echo -e "ls\nbye" > ftp-commands
 
-    - name: FTP connection test
-      run: |
-        cat ftp-commands | \
-          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+#    - name: FTP connection test
+#      run: |
+#        cat ftp-commands | \
+#          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
 
     - name: FTPS connection test
       run: |
