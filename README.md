@@ -68,6 +68,12 @@ For SFTP, use for example:
 sftp -o StrictHostKeyChecking=accept-new -P 2222 ftpuser@localhost
 ```
 
+## Known issues
+
+The GitHub Actions workflow seems to occasionally fail for some unknown reason.
+It is probably related to the Docker Compose and/or networking in the GitHub
+Actions running environment.
+
 ## Further reading
 
 * https://hub.docker.com/r/delfer/alpine-ftp-server
