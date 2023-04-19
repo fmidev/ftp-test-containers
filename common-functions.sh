@@ -23,7 +23,8 @@ function cleanup() {
   cd "${SCRIPT_BASE_DIR}"
   rm --force --verbose \
     cert/localhost.{crt,key} \
-    upload/{image.jpg,text.txt}
+    upload/{image.jpg,text.txt} || \
+    echo "warning: failed to remove some test resources"
 }
 
 # Generates a private key and a self-signed certificate for FTPS
