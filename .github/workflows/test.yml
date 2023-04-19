@@ -58,6 +58,11 @@ jobs:
         set ssl:verify-certificate no
         set ssl:verify-certificate no
         set ftp:passive-mode yes
+        set dns:fatal-timeout 2
+        set net:timeout 2
+        set torrent:timeout 2
+        set xfer:timeout 2
+        set net:max-retries 2
         debug 1
         EOF
         cat ftp-commands | \
