@@ -76,7 +76,8 @@ function generate_test_files() {
 }
 
 function remove_previously_known_localhost_sftp_host_key() {
-  ssh-keygen -R "[localhost]:2222"
+  ssh-keygen -R "[localhost]:2222" || \
+    echo "warning: host key file is probably missing"
 }
 
 function start_ftp_servers() {
