@@ -48,7 +48,7 @@ function remove_previously_known_localhost_sftp_host_key() {
 }
 
 function start_ftp_servers() {
-  docker compose up --detach --abort-on-container-exit
+  docker compose up --detach
 }
 
 function stop_ftp_servers() {
