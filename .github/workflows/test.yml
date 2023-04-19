@@ -27,6 +27,7 @@ jobs:
 
     - name: Setup
       run: |
+        id
         ./setup &
         # Give some time for the containers to start
         sleep 15
