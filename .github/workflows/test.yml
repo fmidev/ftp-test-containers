@@ -39,7 +39,8 @@ jobs:
     - name: FTP connection test
       run: |
         cat ftp-commands | \
-          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+          lftp -u ftpuser,ftppass ftp://localhost:2222
+#          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
 
     - name: FTPS connection test
       run: |
