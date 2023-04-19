@@ -24,3 +24,14 @@ jobs:
             sed --quiet '/^#!.*sh$/F;q' | \
               xargs --no-run-if-empty \
                 shellcheck --external-sources --check-sourced
+
+    - name: Setup and test connections
+      run: |
+        ./setup &
+        # Give some time to start the containers
+        sleep 15
+        realpath $(which ftp)
+        #ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+
+    - name: Teardown
+      run: ./teardown
