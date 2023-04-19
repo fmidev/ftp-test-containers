@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   test:
@@ -33,7 +34,7 @@ jobs:
         # Give some time for the containers to start
         sleep 15
         echo -e "ls\nbye" > ftp-commands
-        sudo apt install --yes lftp
+        sudo apt-get install --yes lftp
 
     - name: FTP connection test
       run: |
