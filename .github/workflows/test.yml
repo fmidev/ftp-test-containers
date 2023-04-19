@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Code checkout
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+
+    - name: ShellCheck
+      run: |
+        find . -path ./.git -prune -o -type f -print0 | \
+          xargs --no-run-if-empty --null --max-args=1 \
+            sed --quiet '/^#!.*sh$/F;q' | \
+              xargs --no-run-if-empty \
+                shellcheck --external-sources --check-sourced
