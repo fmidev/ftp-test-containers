@@ -25,13 +25,30 @@ jobs:
               xargs --no-run-if-empty \
                 shellcheck --external-sources --check-sourced
 
-    - name: Setup and test connections
+    - name: Setup
       run: |
         ./setup &
-        # Give some time to start the containers
+        # Give some time for the containers to start
         sleep 15
-        realpath $(which ftp)
-        #ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+        echo -e "ls\nbye" > ftp-commands
+
+    - name: FTP connection test
+      run: |
+        cat ftp-commands | \
+          ftp -d -q 10 -v ftp://ftpuser:ftppass@localhost:2221
+
+    - name: FTPS connection test
+      run: |
+        echo "TODO"
+
+    - name: SFTP connection test
+      run: |
+        export SSHPASS=ftppass
+        cat ftp-commands | \
+          sshpass -e sftp -o StrictHostKeyChecking=accept-new -P 2222 ftpuser@localhost
+        unset SSHPASS
 
     - name: Teardown
-      run: ./teardown
+      run: |
+        ./teardown
+        rm --force ftp-commands
