@@ -18,7 +18,6 @@ function main() {
   cd "${SCRIPT_BASE_DIR}"
 
   generate_private_key_and_certificate_for_ftps
-  generate_lftp_client_configuration_for_ftps
   generate_test_files
   remove_previously_known_localhost_sftp_host_key
   start_ftp_servers
