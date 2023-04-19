@@ -81,7 +81,7 @@ function remove_previously_known_localhost_sftp_host_key() {
 }
 
 function start_ftp_servers() {
-  docker compose up --abort-on-container-exit
+  docker -D compose up --abort-on-container-exit
 }
 
 function stop_ftp_servers() {
